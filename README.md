@@ -54,6 +54,21 @@ summary: >-
 
 The page rebuilds automatically after the change lands on `main`.
 
+## Updates during a long announcement
+
+A long-running announcement can carry a list of updates. Newest first or
+oldest first, both work; the page sorts them. The most recent update is also
+shown on the card on the landing page.
+
+```yaml
+updates:
+  - time: 2026-09-20 11:00:00
+    body: >-
+      Performance has improved for most users.
+  - time: 2026-09-19 10:15:00
+    body: >-
+      We are aware of the slower access and are looking into it.
+```
 
 ## Front matter reference
 
