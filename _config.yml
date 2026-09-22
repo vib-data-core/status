@@ -1,9 +1,8 @@
 # --- Site -------------------------------------------------------------------
 title: VIB Data Core Announcements
-tagline: Planned and unplanned announcements about the Data Core services
+tagline: Announcements on maintenance and disruptions of Data Core services
 description: >-
-  Announcements about the services provided by VIB Data Core, written and
-  published by Data Core members.
+  Announcements on maintenance and disruptions of Data Core services.
 
 url: "https://vib-data-core.github.io"
 baseurl: "/status"
