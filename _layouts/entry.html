@@ -111,7 +111,7 @@ layout: default
           <span class="accent-solid absolute left-[10px] top-3.5 z-10 h-3 w-3 rounded-full ring-4 ring-slate-100" aria-hidden="true"></span>
           <div class="rounded-xl bg-white p-4">
             <p class="flex flex-wrap items-center gap-2 text-sm font-semibold text-slate-800">
-              {{ u.status | default: "Update" }}
+              Update
               <time class="text-xs font-normal text-slate-400" datetime="{{ u.time | date_to_xmlschema }}">
                 {{ u.time | date: "%-d %b %Y, %H:%M" }}
               </time>

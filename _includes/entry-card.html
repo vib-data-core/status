@@ -101,7 +101,7 @@
         <div class="js-latest-update mt-3 rounded-lg bg-slate-50 p-3"{% if placement == "history" %} hidden{% endif %}>
           <p class="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-700">
             <span class="accent-solid h-2 w-2 shrink-0 rounded-full" aria-hidden="true"></span>
-            {{ latest.status | default: "Update" }}
+            Update
             <time class="font-normal text-slate-400" datetime="{{ latest.time | date_to_xmlschema }}">{{ latest.time | date: "%-d %b, %H:%M" }}</time>
           </p>
           <p class="mt-1 text-sm leading-relaxed text-slate-600">{{ latest.body | strip_newlines }}</p>

@@ -1,7 +1,7 @@
 ---
 title: Etiam porta sem malesuada magna mollis
-start: 2026-08-27 14:05:00 +02:00
-end: 2026-08-27 17:20:00 +02:00
+start: 2026-08-27 14:05:00
+end: 2026-08-27 17:20:00
 type: unplanned
 services_affected:
   - compute

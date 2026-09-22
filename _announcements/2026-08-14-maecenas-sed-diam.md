@@ -1,7 +1,7 @@
 ---
 title: Maecenas sed diam eget risus varius
-start: 2026-08-14 18:00:00 +02:00
-end: 2026-08-15 02:00:00 +02:00
+start: 2026-08-14 18:00:00
+end: 2026-08-15 02:00:00
 type: planned
 services_affected:
   - project-storage

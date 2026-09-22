@@ -1,7 +1,7 @@
 ---
 title: Integer posuere erat a ante venenatis
-start: 2026-09-05 13:12:00 +02:00
-end: 2026-09-05 13:54:00 +02:00
+start: 2026-09-05 13:12:00
+end: 2026-09-05 13:54:00
 type: unplanned
 services_affected:
   - usegalaxy

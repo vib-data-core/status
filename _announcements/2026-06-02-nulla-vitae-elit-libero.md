@@ -1,7 +1,7 @@
 ---
 title: Nulla vitae elit libero a pharetra augue
-start: 2026-06-02 16:00:00 +02:00
-end: 2026-06-02 16:45:00 +02:00
+start: 2026-06-02 16:00:00
+end: 2026-06-02 16:45:00
 type: planned
 services_affected:
   - software-hosting

@@ -16,6 +16,18 @@ FILENAME_RE = /\A\d{4}-\d{2}-\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*\.md\z/.freeze
 # are the keys of _data/levels.yml.
 COLLECTION = "_announcements"
 FIELD = "type"
+# Copied, never published (see the exclude list in _config.yml). It is still
+# checked here so it cannot drift away from the vocabularies, but it is
+# exempt from the YYYY-MM-DD-slug naming rule.
+TEMPLATE = "TEMPLATE.md"
+
+# Times are written without a timezone offset and read as Europe/Brussels by
+# _plugins/local_times.rb. An offset still renders correctly, but it is noise;
+# a zero offset (Z / +00:00) is worse than noise, because it is exactly what a
+# bare local time looks like to the YAML parser and would silently shift by an
+# hour or two.
+OFFSET_RE = /^\s*(?:-\s+)?(?:start|end|time):\s*\d{4}-\d{2}-\d{2}[ Tt]\d{2}:\d{2}(?::\d{2})?\s*(Z|[+-]\d{2}:?\d{2})\s*$/.freeze
+ZERO_OFFSET_RE = /\AZ|\A[+-]00:?00\z/.freeze
 # `severity` was the field of the old incident collection. Flag it explicitly:
 # a stray severity: is the most likely mistake when copying an older file.
 RETIRED_FIELDS = %w[severity kind].freeze
@@ -69,7 +81,9 @@ if Dir.exist?(path)
     warn_ = ->(msg) { warnings << "#{rel}: #{msg}" }
 
     basename = File.basename(file)
-    warn_.call("filename should look like YYYY-MM-DD-short-slug.md") unless basename.match?(FILENAME_RE)
+    unless basename == TEMPLATE || basename.match?(FILENAME_RE)
+      warn_.call("filename should look like YYYY-MM-DD-short-slug.md")
+    end
 
     raw = File.read(file)
     match = raw.match(/\A---\s*\n(.*?)\n---\s*(\n|\z)/m)
@@ -90,6 +104,18 @@ if Dir.exist?(path)
       next
     end
 
+    # --- timezone offsets ---------------------------------------------------
+    match[1].each_line do |line|
+      offset = line[OFFSET_RE, 1]
+      next if offset.nil?
+
+      if offset.match?(ZERO_OFFSET_RE)
+        err.call("`#{offset}` on `#{line.strip}` is read as Europe/Brussels, not UTC - drop the offset and write the Belgian local time")
+      else
+        warn_.call("the `#{offset}` offset is no longer needed; times are read as Europe/Brussels - `#{line.strip.sub(/\s*#{Regexp.escape(offset)}\z/, '')}` is enough")
+      end
+    end
+
     # --- title -------------------------------------------------------------
     title = fm["title"]
     err.call("`title` is required") if title.nil? || title.to_s.strip.empty?
@@ -100,12 +126,12 @@ if Dir.exist?(path)
     if start.nil?
       err.call("`start` is required")
     elsif !timestamp?(start)
-      err.call("`start` must be an unquoted date-time, e.g. 2026-09-14 08:20:00 +02:00 (got #{start.class})")
+      err.call("`start` must be an unquoted date-time, e.g. 2026-09-14 08:20:00 (got #{start.class})")
     end
 
     finish = fm["end"]
     if !finish.nil? && !timestamp?(finish)
-      err.call("`end` must be an unquoted date-time, e.g. 2026-09-14 18:00:00 +02:00 (got #{finish.class})")
+      err.call("`end` must be an unquoted date-time, e.g. 2026-09-14 18:00:00 (got #{finish.class})")
     elsif timestamp?(start) && timestamp?(finish) && to_time(finish) < to_time(start)
       err.call("`end` (#{finish}) is before `start` (#{start})")
     end
@@ -163,6 +189,9 @@ if Dir.exist?(path)
           end
           err.call("#{label}.time must be an unquoted date-time") unless timestamp?(u["time"])
           err.call("#{label}.body is required") if u["body"].to_s.strip.empty?
+          if u.key?("status")
+            warn_.call("#{label}.status is ignored; every update is labelled \"Update\"")
+          end
           if timestamp?(start) && timestamp?(u["time"]) && to_time(u["time"]) < to_time(start)
             warn_.call("#{label}.time is before the start of the entry")
           end

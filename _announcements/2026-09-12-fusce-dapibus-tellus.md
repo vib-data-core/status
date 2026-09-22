@@ -1,7 +1,7 @@
 ---
 title: Fusce dapibus tellus in cursus commodo
-start: 2026-09-12 07:00:00 +02:00
-end: 2026-09-12 09:30:00 +02:00
+start: 2026-09-12 07:00:00
+end: 2026-09-12 09:30:00
 type: planned
 services_affected:
   - data-transfer

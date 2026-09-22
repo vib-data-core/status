@@ -1,7 +1,7 @@
 ---
 title: Nullam varius turpis et commodo pharetra
-start: 2026-10-06 19:00:00 +02:00
-end: 2026-10-06 23:00:00 +02:00
+start: 2026-10-06 19:00:00
+end: 2026-10-06 23:00:00
 type: planned
 services_affected:
   - eln

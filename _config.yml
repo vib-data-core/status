@@ -48,6 +48,8 @@ sass:
 
 exclude:
   - .github/
+  # The announcement template is meant to be copied, not published.
+  - _announcements/TEMPLATE.md
   - Gemfile
   - Gemfile.lock
   - LICENSE
@@ -58,5 +60,3 @@ exclude:
   - script/
   - vendor/
   - assets/css/tailwind.css # Tailwind input; the compiled file is assets/css/main.css
-
-port: 3003
