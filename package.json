@@ -1,0 +1,19 @@
+{
+  "name": "vib-datacore-status",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Announcements page for the VIB Data Core services",
+  "license": "MIT",
+  "scripts": {
+    "css": "tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/main.css --minify",
+    "css:watch": "tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/main.css --watch",
+    "build": "npm run css && bundle exec jekyll build",
+    "serve": "npm run css && (npm run css:watch & bundle exec jekyll serve --livereload)",
+    "validate": "ruby script/validate.rb"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.11",
+    "@tailwindcss/typography": "^0.5.16",
+    "tailwindcss": "^4.1.11"
+  }
+}

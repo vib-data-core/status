@@ -1,0 +1,81 @@
+---
+layout: default
+title: Announcements
+---
+
+{%- comment -%}
+  The landing page carries only what is current or still to come. Past
+  announcements live on /history/ so this page stays short.
+
+  The initial split below is made at build time so the page is correct without
+  JavaScript. assets/js/status.js recomputes it in the browser on every load,
+  so an entry drops off this page the moment its end time passes - no rebuild
+  needed. Entries already closed at build time are not rendered here at all;
+  they only exist on the history page.
+{%- endcomment -%}
+{%- assign open_ended = site.announcements | where_exp: "e", "e.end == nil" -%}
+{%- assign future_end = site.announcements | where_exp: "e", "e.end != nil and e.end > site.time" -%}
+{%- assign live = open_ended | concat: future_end -%}
+{%- assign current = live | where_exp: "e", "e.start <= site.time" | sort: "start" | reverse -%}
+{%- assign planned = live | where_exp: "e", "e.start > site.time" | sort: "start" -%}
+
+<!-- Vocabulary handed to the browser, so JS never hard-codes colours -->
+<script type="application/json" id="levels-data">{{ site.data.levels | jsonify }}</script>
+
+<!-- ── Page heading ──────────────────────────────────────────────────────── -->
+<section class="mx-auto max-w-5xl px-4 pt-10 sm:px-6 sm:pt-12">
+  <h1 class="flex flex-wrap items-center gap-x-4 gap-y-2 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+    {%- comment -%}
+      The whole compact logo, mark and wordmark together, at a size where the
+      wordmark stays legible. Decorative here: the organisation is named in the
+      sentence below and in the footer.
+    {%- endcomment -%}
+    <img src="{{ '/assets/img/datacore-logo.svg' | relative_url }}" alt="" aria-hidden="true"
+         class="h-14 w-auto shrink-0 sm:h-16">
+    {{ page.title }}
+  </h1>
+  <p class="mt-2 max-w-2xl text-base leading-relaxed text-slate-600">
+    Announcements on maintenance and disruptions of Data Core services.
+  </p>
+</section>
+
+<!-- ── Current ───────────────────────────────────────────────────────────── -->
+<section id="current" aria-labelledby="current-heading" class="mx-auto max-w-5xl scroll-mt-20 px-4 pt-12 sm:px-6"{% if current.size == 0 %} hidden{% endif %}>
+  <h2 id="current-heading" class="text-xl font-semibold tracking-tight text-slate-900">Current</h2>
+  <p class="mt-1 text-sm text-slate-500">Announcements that are still open.</p>
+
+  <ul id="current-list" class="mt-5">
+    {%- for e in current -%}
+      {%- include entry-card.html entry=e placement="current" -%}
+    {%- endfor -%}
+  </ul>
+</section>
+
+<!-- ── Planned ───────────────────────────────────────────────────────────── -->
+<section id="planned" aria-labelledby="planned-heading" class="mx-auto max-w-5xl scroll-mt-20 px-4 pt-10 sm:px-6"{% if planned.size == 0 %} hidden{% endif %}>
+  <h2 id="planned-heading" class="text-xl font-semibold tracking-tight text-slate-900">Planned</h2>
+  <p class="mt-1 text-sm text-slate-500">Work we have scheduled for a later date.</p>
+
+  <ul id="planned-list" class="mt-5">
+    {%- for e in planned -%}
+      {%- include entry-card.html entry=e placement="planned" -%}
+    {%- endfor -%}
+  </ul>
+</section>
+
+<!-- Shown only while both lists above are empty -->
+<section id="nothing-current" class="mx-auto max-w-5xl px-4 pt-12 sm:px-6"{% if current.size > 0 or planned.size > 0 %} hidden{% endif %}>
+  <p class="rounded-xl bg-white px-6 py-12 text-center text-sm text-slate-500">
+    Nothing to report at the moment.
+  </p>
+</section>
+
+<!-- ── Link to the history ───────────────────────────────────────────────── -->
+<section class="mx-auto max-w-5xl px-4 pt-12 sm:px-6">
+  <a href="{{ '/history/' | relative_url }}"
+     class="inline-flex items-center gap-1.5 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-vib-800 transition hover:bg-slate-50">
+    {%- include icon.html name="history" class="h-4 w-4" -%}
+    Past announcements
+    {%- include icon.html name="chevron-right" class="h-4 w-4" -%}
+  </a>
+</section>

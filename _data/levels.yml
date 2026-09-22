@@ -1,0 +1,29 @@
+# The one controlled vocabulary of this site: the `type:` of an announcement.
+#
+#   _announcements/*.md  ->  type: unplanned | planned
+#
+# There are only two, and there is deliberately no severity scale. Everything
+# published here is an announcement written by hand by a Data Core member; a
+# graded severity would suggest the page is fed by a monitoring system.
+#
+# `color` is the only colour setting for the whole site. Each entry carries it
+# as the CSS variable --accent, and assets/css/tailwind.css derives the rest
+# from that: the colour as given for the bar down the side of a card and the
+# dot on the timeline, the same hue at lightness 0.95 with a quarter of the
+# chroma for the badge fill, and lightness 0.43 with slightly more chroma for
+# the badge label. Keep the colours light and lightly saturated - a strong,
+# fully saturated hue reads as harsh next to the slate greys of the rest of the
+# page, and a very light or very dark one pushes the derived label below the
+# contrast it needs to stay readable.
+
+unplanned:
+  label: Unplanned
+  color: "#cf8f9c"
+  icon: circle-alert
+  description: Something is not working as it should, outside of planned work.
+
+planned:
+  label: Planned
+  color: "#8fb0cb"
+  icon: calendar-days
+  description: Work we have scheduled in advance.

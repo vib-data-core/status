@@ -1,0 +1,18 @@
+{%- comment -%}
+  Deliberately link-free: no repository, no support address, no documentation.
+  The page is a notice board and nothing more.
+{%- endcomment -%}
+<footer class="mt-20 border-t border-slate-200 bg-white">
+  <div class="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:justify-between">
+      <p class="text-sm font-semibold text-vib-900">{{ site.org.name }}</p>
+
+      <p class="text-xs text-slate-400">
+        Last generated
+        <time datetime="{{ site.time | date_to_xmlschema }}">
+          {{ site.time | date: "%-d %B %Y, %H:%M %Z" }}
+        </time>
+      </p>
+    </div>
+  </div>
+</footer>

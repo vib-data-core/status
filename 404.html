@@ -1,0 +1,21 @@
+---
+layout: default
+title: Page not found
+permalink: /404.html
+sitemap: false
+---
+
+<section class="mx-auto flex max-w-3xl flex-col items-center px-4 py-24 text-center sm:px-6">
+  <span class="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-400">
+    {%- include icon.html name="circle-alert" class="h-7 w-7" -%}
+  </span>
+  <h1 class="mt-6 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">Page not found</h1>
+  <p class="mt-2 max-w-md text-sm leading-relaxed text-slate-500">
+    This announcement does not exist, or the link has changed.
+  </p>
+  <a href="{{ '/' | relative_url }}"
+     class="mt-6 inline-flex items-center gap-1.5 rounded-full bg-vib-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-vib-800">
+    {%- include icon.html name="arrow-left" class="h-4 w-4" -%}
+    Back to announcements
+  </a>
+</section>

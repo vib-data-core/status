@@ -1,0 +1,61 @@
+# --- Site -------------------------------------------------------------------
+title: VIB Data Core Announcements
+tagline: Announcements on maintenance and disruptions of Data Core services
+description: >-
+  Announcements on maintenance and disruptions of Data Core services.
+
+url: "https://vib-data-core.github.io"
+baseurl: "/status"
+
+org:
+  name: "VIB Data Core"
+
+lang: en
+timezone: Europe/Brussels
+
+# --- Content ----------------------------------------------------------------
+# One collection: everything on this site is an announcement. There is
+# deliberately no "incident" type and no severity scale - see the README.
+collections:
+  announcements:
+    output: true
+    permalink: /announcements/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: announcements
+    values:
+      layout: entry
+
+# --- Build ------------------------------------------------------------------
+# Planned work is dated in the future by definition; without this Jekyll
+# refuses to write those pages (default: future: false).
+future: true
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# No jekyll-sitemap: the site asks not to be indexed (see robots.txt and the
+# robots meta tag in _includes/head.html), so a sitemap would contradict it.
+plugins: []
+
+sass:
+  style: compressed
+
+exclude:
+  - .github/
+  # The announcement template is meant to be copied, not published.
+  - _announcements/TEMPLATE.md
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - node_modules/
+  - package-lock.json
+  - package.json
+  - script/
+  - vendor/
+  - assets/css/tailwind.css # Tailwind input; the compiled file is assets/css/main.css
