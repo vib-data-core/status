@@ -58,3 +58,5 @@ exclude:
   - script/
   - vendor/
   - assets/css/tailwind.css # Tailwind input; the compiled file is assets/css/main.css
+
+port: 3003
