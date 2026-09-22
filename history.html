@@ -1,0 +1,131 @@
+---
+layout: default
+title: Past announcements
+permalink: /history/
+---
+
+{%- comment -%}
+  Every announcement is rendered here, newest first, but the ones that have not
+  closed yet start out hidden. That way assets/js/status.js can reveal an entry
+  the minute its end time passes, without the site being rebuilt - and without
+  JavaScript the page still shows exactly the closed ones as of the last build.
+{%- endcomment -%}
+{%- assign entries = site.announcements | sort: "start" | reverse -%}
+{%- assign closed = site.announcements | where_exp: "e", "e.end != nil and e.end <= site.time" -%}
+
+<script type="application/json" id="levels-data">{{ site.data.levels | jsonify }}</script>
+<template id="pill-close">{% include icon.html name="x" class="h-3 w-3 opacity-60" %}</template>
+
+<section class="mx-auto max-w-5xl px-4 pt-10 sm:px-6 sm:pt-12">
+  <a href="{{ '/' | relative_url }}"
+     class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition hover:text-vib-700">
+    {%- include icon.html name="arrow-left" class="h-4 w-4" -%}
+    Back to announcements
+  </a>
+
+  <div class="mt-6 flex flex-wrap items-end justify-between gap-3">
+    <div>
+      <h1 class="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">{{ page.title }}</h1>
+      <p class="mt-2 text-base text-slate-600">Everything that has been closed, newest first.</p>
+    </div>
+    <p id="result-summary" class="text-sm text-slate-500" hidden>
+      <span id="result-count" class="font-semibold text-slate-700">{{ closed.size }}</span>
+      of <span id="total-count">{{ closed.size }}</span> entries
+    </p>
+  </div>
+
+  <!-- Filter toolbar (progressively enhanced; without JS everything is shown) -->
+  <div class="mt-5 rounded-xl bg-white p-4">
+    <div class="flex flex-col gap-3 lg:flex-row lg:items-center">
+      <div class="relative flex-1">
+        <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+          {%- include icon.html name="search" class="h-4 w-4" -%}
+        </span>
+        <label for="search" class="sr-only">Search past announcements</label>
+        <input type="search" id="search" autocomplete="off" placeholder="Search title, description or service…"
+               class="w-full rounded-full border-0 bg-slate-100 py-2 pl-10 pr-10 text-sm text-slate-800 transition placeholder:text-slate-400 focus:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-vib-600">
+        <button type="button" id="search-clear" hidden aria-label="Clear search"
+                class="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 text-slate-400 transition hover:text-slate-700">
+          {%- include icon.html name="x" class="h-4 w-4" -%}
+        </button>
+      </div>
+
+      <div id="type-filter" role="group" aria-label="Filter by type"
+           class="inline-flex rounded-full bg-slate-100 p-1 text-xs font-medium">
+        <button type="button" data-type-filter="all" aria-pressed="true"
+                class="cursor-pointer rounded-full px-3 py-1.5 transition">All</button>
+        {%- for lvl in site.data.levels -%}
+          {%- comment -%}Liquid will not take lvl[1].icon as an include param.{%- endcomment -%}
+          {%- assign lvl_key = lvl[0] -%}
+          {%- assign lvl_icon = lvl[1].icon -%}
+          {%- assign lvl_label = lvl[1].label -%}
+          <button type="button" data-type-filter="{{ lvl_key }}" aria-pressed="false"
+                  class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 transition">
+            {%- include icon.html name=lvl_icon class="h-3.5 w-3.5" -%}
+            {{ lvl_label }}
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <!-- Service selector: narrows the history, nothing more -->
+    <div role="group" aria-label="Filter by service"
+         class="mt-3 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-3">
+      <span aria-hidden="true" class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+        {%- include icon.html name="tag" class="h-3.5 w-3.5" -%}
+        Services
+      </span>
+      {%- for svc in site.data.services -%}
+        <a href="?services={{ svc.id | uri_escape }}"
+           data-service-filter="{{ svc.id }}"
+           title="{{ svc.description | strip_newlines | escape }}"
+           class="js-service-chip inline-flex items-center gap-1 rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600 transition hover:bg-slate-200">
+          <span class="js-chip-check" hidden>{%- include icon.html name="check" class="h-3 w-3" -%}</span>
+          {{ svc.name }}
+        </a>
+      {%- endfor -%}
+    </div>
+
+    <div id="active-filters" class="mt-3 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-3" hidden>
+      <span class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+        {%- include icon.html name="funnel" class="h-3.5 w-3.5" -%}
+        Filters
+      </span>
+      <div id="filter-chips" class="flex flex-wrap items-center gap-2"></div>
+      <button type="button" id="clear-filters"
+              class="ml-auto inline-flex cursor-pointer items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium text-slate-500 transition hover:bg-slate-200 hover:text-slate-900">
+        {%- include icon.html name="x" class="h-3.5 w-3.5" -%}
+        Clear all
+      </button>
+    </div>
+  </div>
+
+  <ol id="timeline" class="mt-8">
+    {%- for e in entries -%}
+      {%- if e.end != nil and e.end <= site.time -%}
+        {%- include entry-card.html entry=e placement="history" -%}
+      {%- else -%}
+        {%- include entry-card.html entry=e placement="history" hide=true -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </ol>
+
+  <p id="history-empty"{% if closed.size > 0 %} hidden{% endif %}
+     class="rounded-xl bg-white px-6 py-12 text-center text-sm text-slate-500">
+    Nothing has been closed yet — this page fills up over time.
+  </p>
+
+  <div id="no-results" hidden
+       class="rounded-xl bg-white px-6 py-12 text-center">
+    <p class="flex justify-center text-slate-300">
+      {%- include icon.html name="search" class="h-8 w-8" -%}
+    </p>
+    <p class="mt-3 text-sm font-medium text-slate-700">No entries match these filters</p>
+    <p class="mt-1 text-sm text-slate-500">Try a different search term or remove a service filter.</p>
+    <button type="button" id="clear-filters-empty"
+            class="mt-4 inline-flex cursor-pointer items-center gap-1.5 rounded-full bg-vib-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-vib-800">
+      {%- include icon.html name="x" class="h-4 w-4" -%}
+      Clear filters
+    </button>
+  </div>
+</section>
