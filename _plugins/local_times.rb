@@ -33,8 +33,7 @@ module VibDataCore
         doc.data[field] = localize(doc.data[field]) if doc.data.key?(field)
       end
 
-      updates = doc.data["updates"]
-      return unless updates.is_a?(Array)
+      updates = Array(doc.data["updates"])
 
       updates.each do |update|
         update["time"] = localize(update["time"]) if update.is_a?(Hash) && update.key?("time")
