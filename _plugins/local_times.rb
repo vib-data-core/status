@@ -35,9 +35,11 @@ module VibDataCore
 
       updates = Array(doc.data["updates"])
 
-      updates.each do |update|
-        update["time"] = localize(update["time"]) if update.is_a?(Hash) && update.key?("time")
-      end
+updates.each do |update|
+  next unless update.is_a?(Hash) && update.key?("time")
+
+  update["time"] = localize(update["time"])
+end
     end
 
     # Jekyll has already put `timezone:` from _config.yml into ENV["TZ"], so
