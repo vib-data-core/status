@@ -28,6 +28,20 @@ TEMPLATE = "TEMPLATE.md"
 # hour or two.
 OFFSET_RE = /^\s*(?:-\s+)?(?:start|end|time):\s*\d{4}-\d{2}-\d{2}[ Tt]\d{2}:\d{2}(?::\d{2})?\s*(Z|[+-]\d{2}:?\d{2})\s*$/.freeze
 ZERO_OFFSET_RE = /\AZ|\A[+-]00:?00\z/.freeze
+# A date-time line, picked apart so the pieces can be checked individually.
+# Anything YAML cannot resolve as a timestamp arrives as a String and is caught
+# by `timestamp?` further down, but two mistakes slip past that net:
+#
+#   2026-09-31   a day the month does not have. YAML rolls it over to
+#                2026-10-01 without complaint, so the entry silently appears on
+#                the wrong date. Day 00 or 32+ and month 13+ are rejected
+#                outright, which makes this the one range error that gets
+#                through - and 31-day-September / 29-February is exactly the
+#                sort of thing someone types.
+#   09:30        no seconds. YAML will not resolve it as a timestamp at all, so
+#                it is caught, but "(got String)" is a puzzling way to be told
+#                that ":00" is missing.
+DATETIME_RE = /^\s*(?:-\s+)?(start|end|time):\s*(\d{4})-(\d{1,2})-(\d{1,2})(?:[ Tt](\d{1,2}):(\d{2})(:\d{2})?)?\s*\S*\s*$/.freeze
 # `severity` was the field of the old incident collection. Flag it explicitly:
 # a stray severity: is the most likely mistake when copying an older file.
 RETIRED_FIELDS = %w[severity kind].freeze
@@ -113,6 +127,26 @@ if Dir.exist?(path)
         err.call("`#{offset}` on `#{line.strip}` is read as Europe/Brussels, not UTC - drop the offset and write the Belgian local time")
       else
         warn_.call("the `#{offset}` offset is no longer needed; times are read as Europe/Brussels - `#{line.strip.sub(/\s*#{Regexp.escape(offset)}\z/, '')}` is enough")
+      end
+    end
+
+    # --- date-time shape ----------------------------------------------------
+    match[1].each_line do |line|
+      fields = line.match(DATETIME_RE)
+      next if fields.nil?
+
+      key, year, month, day, hour, min, secs = fields.captures
+      year, month, day = [year, month, day].map(&:to_i)
+
+      unless Date.valid_date?(year, month, day)
+        last = Date.new(year, month, -1).day if month.between?(1, 12)
+        hint = last ? "#{Date::MONTHNAMES[month]} #{year} has #{last} days" : "there is no month #{month}"
+        err.call("`#{key}` is #{format('%04d-%02d-%02d', year, month, day)}, which is not a real date - #{hint}")
+        next
+      end
+
+      if hour && secs.nil?
+        err.call("`#{key}` is missing seconds on `#{line.strip}` - write the time as HH:MM:SS, e.g. #{format('%02d', hour.to_i)}:#{min}:00")
       end
     end
 
