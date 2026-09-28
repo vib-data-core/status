@@ -1,0 +1,7 @@
+---
+permalink: /robots.txt
+---
+# This page is not meant to be indexed: it is a small, manually maintained
+# notice board for VIB Data Core users, not a public document.
+User-agent: *
+Disallow: /

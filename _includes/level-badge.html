@@ -1,0 +1,11 @@
+{%- comment -%}
+  Badge for the type of an announcement.
+  Params: level (key from _data/levels.yml)
+{%- endcomment -%}
+{%- assign level_key = include.level | default: "info" -%}
+{%- assign level = site.data.levels[level_key] -%}
+{%- unless level -%}{%- assign level = site.data.levels.info -%}{%- endunless -%}
+<span class="accent-tint inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium">
+  {%- include icon.html name=level.icon class="h-3.5 w-3.5" -%}
+  {{ level.label }}
+</span>

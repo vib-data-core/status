@@ -1,0 +1,50 @@
+# Controlled vocabulary for the `services_affected:` front matter field.
+#
+# These are the VIB Data Core services as listed in the Data Core catalogue
+# (the ones shown in Connect). Use the `id` in front matter, e.g.
+#   services_affected: [project-storage, usegalaxy]
+#
+# One announcement can cover several services. Adding a service = adding an
+# entry here; script/validate.rb (and the check on every pull request) rejects
+# ids that are not listed below. Ids are lowercase with dashes and should not
+# change afterwards - they appear in shareable filter links such as
+# ?services=usegalaxy,compute
+#
+# The descriptions below are placeholders and only surface as the tooltip on a
+# service chip; replace them with the catalogue wording.
+
+- id: compute
+  name: Compute
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+- id: secure-compute
+  name: Secure Compute
+  description: Sed do eiusmod tempor incididunt ut labore et dolore magna.
+
+- id: usegalaxy
+  name: useGalaxy.be
+  description: Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+
+- id: project-storage
+  name: Project Storage
+  description: Laboris nisi ut aliquip ex ea commodo consequat.
+
+- id: eln
+  name: Electronic Lab Notebook
+  description: Duis aute irure dolor in reprehenderit in voluptate velit.
+
+- id: software-licenses
+  name: Scientific Software licenses
+  description: Esse cillum dolore eu fugiat nulla pariatur.
+
+- id: data-transfer
+  name: Data Transfer Solutions
+  description: Excepteur sint occaecat cupidatat non proident.
+
+- id: data-deposition
+  name: Data Deposition Toolbox
+  description: Sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+- id: software-hosting
+  name: Software Hosting
+  description: Curabitur pretium tincidunt lacus, nulla gravida orci.
