@@ -19,7 +19,7 @@ timezone: Europe/Brussels
 collections:
   announcements:
     output: true
-    permalink: /announcements/:name/
+    permalink: /:name/
 
 defaults:
   - scope:
