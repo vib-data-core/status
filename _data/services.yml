@@ -44,3 +44,7 @@
 - id: data-deposition
   name: Data Deposition Toolbox
   description: Sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+- id: dmp-platform
+  name: DMP Platform
+  description: Sunt in culpa qui officia deserunt mollit anim id est laborum.
