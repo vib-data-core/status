@@ -98,9 +98,6 @@ several of them. Use the `id` in front matter; the `name` is what readers see:
   name: Project Storage
 ```
 
-An optional `description` (use the catalogue wording) shows as the tooltip on a
-service chip in the history.
-
 If the catalogue gains a service, add it here in the same change. Ids are
 lowercase with dashes and should not change afterwards — they appear in
 shareable filter links such as `/history/?services=project-storage,usegalaxy`.

@@ -9,9 +9,6 @@
 # ids that are not listed below. Ids are lowercase with dashes and should not
 # change afterwards - they appear in shareable filter links such as
 # ?services=usegalaxy,compute
-#
-# An optional `description:` (the catalogue wording) shows as the tooltip on a
-# service chip in the history.
 
 - id: compute
   name: Compute

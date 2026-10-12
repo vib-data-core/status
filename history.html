@@ -78,7 +78,6 @@ permalink: /history/
       {%- for svc in site.data.services -%}
         <a href="?services={{ svc.id | uri_escape }}"
            data-service-filter="{{ svc.id }}"
-           {%- if svc.description %} title="{{ svc.description | strip_newlines | escape }}"{% endif %}
            class="js-service-chip inline-flex items-center gap-1 rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600 transition hover:bg-slate-200">
           <span class="js-chip-check" hidden>{%- include icon.html name="check" class="h-3 w-3" -%}</span>
           {{ svc.name }}
