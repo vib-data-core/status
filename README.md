@@ -79,7 +79,7 @@ updates:
 | `end` | no | date-time | Omit while it is still going on. Once it is in the past, the entry moves to the history page. |
 | `type` | yes | keyword | `unplanned` or `planned`. |
 | `services_affected` | yes | list | Ids from [`_data/services.yml`](_data/services.yml). Unknown ids fail the build check. |
-| `summary` | recommended | text | One or two sentences, shown on cards and in the history. |
+| `summary` | optional | text | One or two sentences, shown on cards and in the history. Without it, the first paragraph of the body is used. |
 | `updates` | no | list | Chronological updates during a long announcement, each one a `time` and a `body`. See the commented-out block in the template. |
 
 Times carry no offset because every time on this page is Belgian local time.
@@ -137,7 +137,7 @@ edit [`assets/css/tailwind.css`](assets/css/tailwind.css) instead.
 - missing or unknown service ids
 - malformed `updates` entries
 
-It also prints warnings (empty body, missing summary, odd file name) that do
+It also prints warnings (empty body, overly long summary, odd file name) that do
 not block the change.
 
 
