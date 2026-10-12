@@ -96,11 +96,10 @@ several of them. Use the `id` in front matter; the `name` is what readers see:
 ```yaml
 - id: project-storage
   name: Project Storage
-  description: Laboris nisi ut aliquip ex ea commodo consequat.
 ```
 
-The `description` only surfaces as the tooltip on a service chip, and the ones
-checked in are placeholder text — replace them with the catalogue wording.
+An optional `description` (use the catalogue wording) shows as the tooltip on a
+service chip in the history.
 
 If the catalogue gains a service, add it here in the same change. Ids are
 lowercase with dashes and should not change afterwards — they appear in
