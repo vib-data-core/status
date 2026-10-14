@@ -23,8 +23,7 @@ start: 2026-09-19 09:30:00
 type: unplanned
 services_affected:
   - project-storage
-summary: >-
-  One or two sentences shown on the card and in the history.
+summary: One or two sentences shown on the card and in the history.
 ---
 
 Markdown body
@@ -47,8 +46,7 @@ end: 2026-10-06 23:00:00
 type: planned
 services_affected:
   - eln
-summary: >-
-  The Electronic Lab Notebook is unavailable for about four hours.
+summary: The Electronic Lab Notebook is unavailable for about four hours.
 ---
 ```
 
@@ -63,11 +61,9 @@ shown on the card on the landing page.
 ```yaml
 updates:
   - time: 2026-09-20 11:00:00
-    body: >-
-      Performance has improved for most users.
+    body: Performance has improved for most users.
   - time: 2026-09-19 10:15:00
-    body: >-
-      We are aware of the slower access and are looking into it.
+    body: We are aware of the slower access and are looking into it.
 ```
 
 ## Front matter reference
