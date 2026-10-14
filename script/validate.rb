@@ -203,9 +203,8 @@ if Dir.exist?(path)
 
     # --- summary -----------------------------------------------------------
     summary = fm["summary"]
-    if summary.nil? || summary.to_s.strip.empty?
-      warn_.call("no `summary`: the card will only show the title")
-    elsif summary.to_s.length > 300
+    # Optional: without one, the card shows the first paragraph of the body.
+    if (summary&.to_s&.length || 0) > 300
       warn_.call("`summary` is long (#{summary.to_s.length} chars); it is meant to be one or two sentences")
     end
 

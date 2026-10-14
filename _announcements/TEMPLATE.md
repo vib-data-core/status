@@ -14,6 +14,7 @@ services_affected:
 #   One or more ids from _data/services.yml
 summary: >-
   One or two sentences shown on the card and in the history.
+#   Optional: leave it out and the card shows the first paragraph of the body.
 # updates:
 #   - time: 2026-09-19 14:00:00
 #     body: >-

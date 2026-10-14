@@ -8,7 +8,7 @@
 {%- else -%}
   {%- assign page_title = site.title -%}
 {%- endif -%}
-{%- assign page_description = page.summary | default: page.description | default: site.description | strip_newlines | truncate: 200 -%}
+{%- assign page_description = page.summary | default: page.excerpt | strip_html | strip | default: page.description | default: site.description | strip_newlines | truncate: 200 -%}
 
 <title>{{ page_title | escape }}</title>
 <meta name="description" content="{{ page_description | escape }}">
