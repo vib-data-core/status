@@ -12,14 +12,11 @@ type: unplanned
 services_affected:
   - project-storage
 #   One or more ids from _data/services.yml
-summary: >-
-  One or two sentences shown on the card and in the history.
+summary: One or two sentences shown on the card and in the history.
 #   Optional: leave it out and the card shows the first paragraph of the body.
 # updates:
 #   - time: 2026-09-19 14:00:00
-#     body: >-
-#       What changed since this went up. Every update is labelled "Update";
-#       there is nothing else to set.
+#     body: What changed since this went up. Every update is labelled "Update"; there is nothing else to set.
 ---
 
 What people notice, and what they can do in the meantime. Normal Markdown:
