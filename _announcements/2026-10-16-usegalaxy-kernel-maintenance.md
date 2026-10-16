@@ -1,7 +1,7 @@
 ---
 title: "Scheduled maintenance of useGalaxy.be: security updates"
 start: 2026-10-16 10:00:00
-end: 2026-10-16 13:00:00
+end: 2026-10-16 15:00:00
 type: planned
 services_affected:
   - usegalaxy
