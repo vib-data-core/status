@@ -1,7 +1,7 @@
 # Controlled vocabulary for the `services_affected:` front matter field.
 #
-# These are the VIB Data Core services as listed in the Data Core catalogue
-# (the ones shown in Connect). Use the `id` in front matter, e.g.
+# These are the VIB Data Core services as listed in the Data Core catalogue.
+# Use the `id` in front matter, e.g.
 #   services_affected: [project-storage, usegalaxy]
 #
 # One announcement can cover several services. Adding a service = adding an
