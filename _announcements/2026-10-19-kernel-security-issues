@@ -15,8 +15,8 @@ services_affected:
 #   One or more ids from _data/services.yml
 summary: We're closing down the login nodes of VIB Data Core compute clusters due to a recently announced security exploit. We're working to recover the login services as soon as possible, but at the time we're unable to provide an ETA.
 #   Optional: leave it out and the card shows the first paragraph of the body.
-# updates:
-#   - time: 2026-09-19 14:00:00
-#     body: What changed since this went up. Every update is labelled "Update"; there is nothing else to set.
+updates:
+  - time: 2026-10-21 10:00:00
+    body: We are currently rolling out the patch to our servers.
 ---
 We're closing down the login nodes of VIB Data Core compute clusters due to a recently announced security exploit. We're working to recover the login services as soon as possible, but at the time we're unable to provide an ETA.
