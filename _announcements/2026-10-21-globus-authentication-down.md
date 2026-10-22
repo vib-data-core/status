@@ -19,4 +19,4 @@ services_affected:
 #     body: What changed since this went up. Every update is labelled "Update"; there is nothing else to set.
 ---
 
-The authentication service has been taken offline as a precaution due to a PHP vulnerability. Existing sessions may continue to work, but new authentication attempts will fail.
+The authentication service has been taken offline as a precaution due to a PHP vulnerability. Existing Globus sessions may continue to work, but new authentication attempts will fail.
