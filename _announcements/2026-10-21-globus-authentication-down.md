@@ -4,7 +4,7 @@
 title: Temporary unavailability of VIB authentication for Globus
 start: 2026-10-21 16:00:00
 #   Belgian local time. No timezone offset - do not write +02:00.
-# end: 2026-09-19 18:00:00
+end: 2026-10-23 10:20:00
 #   Leave `end` out entirely while it is still going on. Add it once it is
 #   over and the entry moves to /history/ by itself.
 type: unplanned
