@@ -27,8 +27,8 @@
 {%- elsif placement == "planned" -%}{%- assign state = "scheduled" -%}
 {%- else -%}{%- assign state = "closed" -%}{%- endif -%}
 
+{%- comment -%}One colour per entry; the tints come off it in CSS.{%- endcomment %}
 <li class="js-entry"{% if include.hide %} hidden{% endif %}
-    {%- comment -%}One colour per entry; the tints come off it in CSS.{%- endcomment -%}
     style="--accent: {{ level.color }}"
     data-state="{{ state }}"
     data-level="{{ level_key }}"
