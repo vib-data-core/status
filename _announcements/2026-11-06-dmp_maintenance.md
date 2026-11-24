@@ -1,6 +1,7 @@
 ---
 title: Scheduled maintenance on the Data Management Planning (DMP) platform
 start: 2026-11-06 08:00:00
+end: 2026-11-06 17:00:00
 type: planned
 services_affected:
   - dmp-platform
